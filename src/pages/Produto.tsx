@@ -172,34 +172,37 @@ const Produto = () => {
       <main className="container py-4 lg:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
           
-          {/* Mobile Only - Title and SKU First */}
-          <div className="lg:hidden order-1 space-y-1">
-            <span className="text-sm text-muted-foreground block">Ref: {product.sku || product.id}</span>
-            <h1 className="text-xl font-semibold text-foreground leading-tight">
-              {product.condition} {product.name} {selectedColor ? `- ${selectedColor}` : ''} - {product.conditionDescription || "Excelente - Sem marcas de uso"}
-            </h1>
+          {/* Mobile Only - Title, SKU and Actions */}
+          <div className="lg:hidden order-1">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <span className="text-xs text-muted-foreground block mb-1">Ref: {product.sku || product.id}</span>
+                <h1 className="text-lg font-medium text-foreground leading-snug">
+                  {product.condition} {product.name} {selectedColor ? `- ${selectedColor}` : ''} - {product.conditionDescription || "Excelente - Sem marcas de uso"}
+                </h1>
+              </div>
+              <div className="flex items-center gap-1 flex-shrink-0">
+                <button
+                  onClick={() => setIsFavorite(!isFavorite)}
+                  className="p-2 hover:bg-secondary rounded-full transition-colors"
+                  aria-label="Adicionar aos favoritos"
+                >
+                  <Heart 
+                    className={`w-5 h-5 ${isFavorite ? "fill-primary text-primary" : "text-primary"}`} 
+                  />
+                </button>
+                <button 
+                  className="p-2 hover:bg-secondary rounded-full transition-colors"
+                  aria-label="Compartilhar"
+                >
+                  <Share2 className="w-4 h-4 text-muted-foreground" />
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Left Column - Images */}
-          <div className="space-y-2 order-2 lg:order-1 relative">
-            {/* Mobile - Favorite/Share buttons - positioned over the image */}
-            <div className="lg:hidden absolute right-2 top-2 flex items-center gap-1 z-10">
-              <button
-                onClick={() => setIsFavorite(!isFavorite)}
-                className="p-2 hover:bg-secondary/80 rounded-full transition-colors bg-background/80"
-                aria-label="Adicionar aos favoritos"
-              >
-                <Heart 
-                  className={`w-5 h-5 ${isFavorite ? "fill-primary text-primary" : "text-primary"}`} 
-                />
-              </button>
-              <button 
-                className="p-2 hover:bg-secondary/80 rounded-full transition-colors bg-background/80"
-                aria-label="Compartilhar"
-              >
-                <Share2 className="w-4 h-4 text-muted-foreground" />
-              </button>
-            </div>
+          <div className="space-y-3 order-2 lg:order-1">
             
             {/* Main Image */}
             <div className="relative aspect-square bg-background flex items-center justify-center rounded-lg overflow-hidden">
