@@ -11,6 +11,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { API_BASE_URL } from "@/services/api";
 import { useNavigate } from "react-router-dom";
+import AppleLogo from "@/assets/logo-apple.svg";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -116,11 +117,12 @@ const LoginModal = ({ isOpen, onClose, defaultToRegister = false }: LoginModalPr
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[90vw] max-w-[400px] p-0 overflow-hidden">
+      <DialogContent className="w-[90vw] max-w-[400px] p-0 overflow-hidden rounded-2xl border-0 shadow-xl">
         {/* Header with logo and security badge */}
-        <div className="bg-background border-b border-border p-4 flex items-center justify-between">
+        <div className="bg-background border-b border-border p-5 flex items-center justify-between rounded-t-2xl">
           <div className="flex items-center gap-3">
-            <div className="flex items-center">
+            <div className="flex items-center gap-1.5">
+              <img src={AppleLogo} alt="Apple" className="w-5 h-5" />
               <span className="text-xl font-bold text-foreground">iPlace</span>
               <span className="text-xs text-muted-foreground ml-1">seminovos</span>
             </div>
@@ -159,7 +161,7 @@ const LoginModal = ({ isOpen, onClose, defaultToRegister = false }: LoginModalPr
                   placeholder="Seu nome"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  className="w-full"
+                  className="w-full rounded-lg"
                   required={!isLogin}
                   disabled={isLoading}
                 />
@@ -175,7 +177,7 @@ const LoginModal = ({ isOpen, onClose, defaultToRegister = false }: LoginModalPr
                 placeholder="nome@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full"
+                className="w-full rounded-lg"
                 required
                 disabled={isLoading}
               />
@@ -190,7 +192,7 @@ const LoginModal = ({ isOpen, onClose, defaultToRegister = false }: LoginModalPr
                 placeholder={isLogin ? "Sua senha" : "Mínimo 6 caracteres"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full"
+                className="w-full rounded-lg"
                 required
                 minLength={6}
                 disabled={isLoading}
@@ -208,7 +210,7 @@ const LoginModal = ({ isOpen, onClose, defaultToRegister = false }: LoginModalPr
 
             <Button
               type="submit"
-              className="w-full bg-foreground hover:bg-foreground/90 text-background font-medium py-6"
+              className="w-full bg-foreground hover:bg-foreground/80 text-background font-medium py-6 rounded-lg transition-all"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -219,27 +221,6 @@ const LoginModal = ({ isOpen, onClose, defaultToRegister = false }: LoginModalPr
               ) : (
                 isLogin ? "Entrar" : "Criar conta"
               )}
-            </Button>
-
-            <div className="relative my-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">ou</span>
-              </div>
-            </div>
-
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full py-6 flex items-center justify-center gap-3"
-              disabled={isLoading}
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-              Entrar com Facebook
             </Button>
           </form>
         </div>
