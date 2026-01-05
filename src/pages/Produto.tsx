@@ -172,44 +172,23 @@ const Produto = () => {
       <main className="container py-4 lg:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
           
-          {/* Mobile Only - Title, SKU and Actions */}
+          {/* Mobile Only - Title and SKU */}
           <div className="lg:hidden order-1">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <span className="text-xs text-muted-foreground block mb-1">Ref: {product.sku || product.id}</span>
-                <h1 className="text-lg font-medium text-foreground leading-snug">
-                  {product.condition} {product.name} {selectedColor ? `- ${selectedColor}` : ''} - {product.conditionDescription || "Excelente - Sem marcas de uso"}
-                </h1>
-              </div>
-              <div className="flex items-center gap-1 flex-shrink-0">
-                <button
-                  onClick={() => setIsFavorite(!isFavorite)}
-                  className="p-2 hover:bg-secondary rounded-full transition-colors"
-                  aria-label="Adicionar aos favoritos"
-                >
-                  <Heart 
-                    className={`w-5 h-5 ${isFavorite ? "fill-primary text-primary" : "text-primary"}`} 
-                  />
-                </button>
-                <button 
-                  className="p-2 hover:bg-secondary rounded-full transition-colors"
-                  aria-label="Compartilhar"
-                >
-                  <Share2 className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </div>
-            </div>
+            <span className="text-xs text-muted-foreground block mb-1">Ref: {product.sku || product.id}</span>
+            <h1 className="text-lg font-medium text-foreground leading-snug">
+              {product.condition} {product.name} {selectedColor ? `- ${selectedColor}` : ''} - {product.conditionDescription || "Excelente - Sem marcas de uso"}
+            </h1>
           </div>
 
           {/* Left Column - Images */}
           <div className="space-y-3 order-2 lg:order-1">
             
             {/* Main Image */}
-            <div className="relative aspect-square bg-background flex items-center justify-center rounded-lg overflow-hidden">
+            <div className="relative aspect-square bg-secondary/30 flex items-center justify-center rounded-xl overflow-hidden">
               <img
                 src={product.images[currentImage]}
                 alt={product.name}
-                className="max-w-full max-h-full object-contain"
+                className="max-w-full max-h-full object-contain p-4"
               />
               
               {/* Navigation Arrows */}
@@ -233,23 +212,23 @@ const Produto = () => {
               )}
             </div>
 
-            {/* Thumbnails - show up to 4 images */}
+            {/* Thumbnails - show up to 10 images */}
             {product.images.length > 1 && (
-              <div className="flex gap-2 lg:gap-3 justify-start overflow-x-auto py-2">
-                {product.images.slice(0, 4).map((image, index) => (
+              <div className="flex gap-2 lg:gap-3 justify-start overflow-x-auto py-2 scrollbar-thin">
+                {product.images.slice(0, 10).map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImage(index)}
-                    className={`w-16 h-16 lg:w-20 lg:h-20 flex-shrink-0 border-2 rounded-lg overflow-hidden transition-colors ${
+                    className={`w-14 h-14 lg:w-16 lg:h-16 flex-shrink-0 border-2 rounded-lg overflow-hidden transition-colors bg-secondary/30 ${
                       currentImage === index 
-                        ? "border-primary" 
+                        ? "border-foreground" 
                         : "border-border hover:border-muted-foreground"
                     }`}
                   >
                     <img 
                       src={image} 
                       alt="" 
-                      className="w-full h-full object-contain bg-background" 
+                      className="w-full h-full object-contain p-1" 
                     />
                   </button>
                 ))}
@@ -260,27 +239,10 @@ const Produto = () => {
           {/* Right Column - Product Info (after image on mobile) */}
           <div className="space-y-5 order-3 lg:order-2">
             {/* Title Row - Desktop Only */}
-            <div className="hidden lg:flex items-start justify-between gap-4">
+            <div className="hidden lg:block">
               <h1 className="text-2xl font-semibold text-foreground leading-tight">
                 {product.condition} {product.name} {selectedColor ? `- ${selectedColor}` : ''} - {product.conditionDescription || "Excelente - Sem marcas de uso"}
               </h1>
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <button
-                  onClick={() => setIsFavorite(!isFavorite)}
-                  className="p-2 hover:bg-secondary rounded-full transition-colors"
-                  aria-label="Adicionar aos favoritos"
-                >
-                  <Heart 
-                    className={`w-6 h-6 ${isFavorite ? "fill-primary text-primary" : "text-primary"}`} 
-                  />
-                </button>
-                <button 
-                  className="p-2 hover:bg-secondary rounded-full transition-colors"
-                  aria-label="Compartilhar"
-                >
-                  <Share2 className="w-5 h-5 text-muted-foreground" />
-                </button>
-              </div>
             </div>
 
             {/* SKU and Rating - Desktop Only */}
@@ -306,11 +268,30 @@ const Produto = () => {
 
             {/* Price Section */}
             <div className="space-y-2 pt-2">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl lg:text-4xl font-bold text-foreground">
-                  {formatPrice(currentPrice)}
-                </span>
-                <span className="text-sm text-muted-foreground">no PIX</span>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl lg:text-4xl font-bold text-foreground">
+                    {formatPrice(currentPrice)}
+                  </span>
+                  <span className="text-sm text-muted-foreground">no PIX</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setIsFavorite(!isFavorite)}
+                    className="p-2 hover:bg-secondary rounded-full transition-colors"
+                    aria-label="Adicionar aos favoritos"
+                  >
+                    <Heart 
+                      className={`w-5 h-5 ${isFavorite ? "fill-primary text-primary" : "text-muted-foreground"}`} 
+                    />
+                  </button>
+                  <button 
+                    className="p-2 hover:bg-secondary rounded-full transition-colors"
+                    aria-label="Compartilhar"
+                  >
+                    <Share2 className="w-4 h-4 text-muted-foreground" />
+                  </button>
+                </div>
               </div>
               <p className="text-sm text-muted-foreground">
                 ou <span className="font-medium text-primary">{product.installments}x</span> de{" "}
@@ -339,7 +320,7 @@ const Produto = () => {
                 />
                 <Button 
                   onClick={handleCalculateShipping}
-                  className="h-11 px-6 bg-[#1a1a2e] hover:bg-[#1a1a2e]/90 text-white"
+                  className="h-11 px-6 bg-foreground hover:bg-foreground/80 text-background rounded-lg transition-all"
                 >
                   Calcular
                 </Button>
@@ -428,14 +409,14 @@ const Produto = () => {
             <div className="hidden lg:flex gap-3 pt-4">
               <Button 
                 onClick={handleAddToCart} 
-                className="flex-1 h-14 text-base font-semibold bg-[#c8e600] hover:bg-[#b8d600] text-[#1a1a2e]"
+                className="flex-1 h-14 text-base font-semibold bg-foreground hover:bg-foreground/80 text-background rounded-lg transition-all"
                 disabled={currentStock === 0}
               >
                 {currentStock === 0 ? "Esgotado" : "Adicionar ao carrinho"}
               </Button>
               <Button 
                 onClick={handleBuyNow} 
-                className="flex-1 h-14 text-base font-semibold bg-[#1a1a2e] hover:bg-[#1a1a2e]/90 text-white"
+                className="flex-1 h-14 text-base font-semibold bg-foreground hover:bg-foreground/80 text-background rounded-lg transition-all"
                 disabled={currentStock === 0}
               >
                 Comprar
@@ -476,18 +457,18 @@ const Produto = () => {
       </main>
 
       {/* Fixed Bottom Bar - Mobile/Tablet */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-4 lg:hidden z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+      <div className="fixed bottom-0 left-0 right-0 bg-transparent p-4 lg:hidden z-50">
         <div className="container flex gap-3">
           <Button 
             onClick={handleAddToCart} 
-            className="flex-1 h-12 text-sm font-semibold bg-[#c8e600] hover:bg-[#b8d600] text-[#1a1a2e]"
+            className="flex-1 h-12 text-sm font-semibold bg-foreground hover:bg-foreground/80 text-background rounded-lg transition-all shadow-lg"
             disabled={currentStock === 0}
           >
             {currentStock === 0 ? "Esgotado" : "Adicionar ao carrinho"}
           </Button>
           <Button 
             onClick={handleBuyNow} 
-            className="flex-1 h-12 text-sm font-semibold bg-[#1a1a2e] hover:bg-[#1a1a2e]/90 text-white"
+            className="flex-1 h-12 text-sm font-semibold bg-foreground hover:bg-foreground/80 text-background rounded-lg transition-all shadow-lg"
             disabled={currentStock === 0}
           >
             Comprar

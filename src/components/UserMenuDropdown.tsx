@@ -69,9 +69,9 @@ const UserMenuDropdown = ({ userName, userEmail, userType, onLogout }: UserMenuD
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 px-3">
-          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-            <User className="w-4 h-4 text-primary" />
+        <Button variant="ghost" className="flex items-center gap-2 px-3 group">
+          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center transition-colors group-hover:bg-foreground">
+            <User className="w-4 h-4 text-muted-foreground transition-colors group-hover:text-background" />
           </div>
           <span className="hidden md:inline-block text-sm font-medium max-w-[100px] truncate">
             {userName || "Minha Conta"}

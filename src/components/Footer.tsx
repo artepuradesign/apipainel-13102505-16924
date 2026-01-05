@@ -2,6 +2,7 @@ import { Facebook, Instagram, Youtube, ChevronRight, Phone, ChevronDown } from "
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import AppleLogo from "@/assets/logo-apple.svg";
 
 const Footer = () => {
   const [openSections, setOpenSections] = useState<string[]>([]);
@@ -182,7 +183,8 @@ const Footer = () => {
             </div>
 
             {/* Logo */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-1.5">
+              <img src={AppleLogo} alt="Apple" className="w-5 h-5" />
               <span className="text-lg md:text-xl font-bold text-foreground">iPlace</span>
               <span className="text-xs text-muted-foreground ml-1">seminovos</span>
             </div>
